@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TechMaster Academy - Premium Learning Platform v3.0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --neon-blue: #00d4ff;
+      --neon-pink: #ff006e;
+      --neon-purple: #b537f2;
+      --neon-green: #39ff14;
+      --neon-yellow: #ffea00;
+      --neon-orange: #ff5e00;
+      --dark-bg: #0a0a0f;
+      --dark-card: #13131a;
+      --dark-lighter: #1a1a24;
+      --text-primary: #ffffff;
+      --text-secondary: #b8b8c8;
+      --glow-blue: 0 0 20px rgba(0, 212, 255, 0.5);
+      --glow-pink: 0 0 20px rgba(255, 0, 110, 0.5);
+      --glow-purple: 0 0 20px rgba(181, 55, 242, 0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Grid Background */
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 0;
+      animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    /* Neon Orbs */
+    .neon-orbs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .neon-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.3;
+      animation: orbFloat 25s ease-in-out infinite;
+    }
+
+    .neon-orb:nth-child(1) {
+      width: 500px;
+      height: 500px;
+      background: var(--neon-blue);
+      top: -10%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+
+    .neon-orb:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      background: var(--neon-pink);
+      top: 50%;
+      right: -5%;
+      animation-delay: 5s;
+    }
+
+    .neon-orb:nth-child(3) {
+      width: 450px;
+      height: 450px;
+      background: var(--neon-purple);
+      bottom: -10%;
+      left: 40%;
+      animation-delay: 10s;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(100px, -100px) scale(1.1); }
+      66% { transform: translate(-100px, 100px) scale(0.9); }
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(13, 13, 26, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 20px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: var(--glow-blue);
+      letter-spacing: 2px;
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.6)); }
+      50% { filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.8)); }
+    }
+
+    .nav-stats {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid var(--neon-blue);
+      border-radius: 25px;
+      box-shadow: var(--glow-blue);
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.7);
+    }
+
+    .stat-item i {
+      color: var(--neon-blue);
+      font-size: 1.1rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      z-index: 10;
+      padding: 150px 5% 80px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      margin-bottom: 25px;
+      line-height: 1.1;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 .word {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: wordPulse 2s ease-in-out infinite;
+      filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.8));
+    }
+
+    .hero h1 .word:nth-child(2) {
+      animation-delay: 0.3s;
+      background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero h1 .word:nth-child(3) {
+      animation-delay: 0.6s;
+      background: linear-gradient(135deg, var(--neon-purple), var(--neon-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes wordPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+
+    .hero-subtitle strong {
+      color: var(--neon-pink);
+      font-weight: 700;
+    }
+
+    /* Controls Section */
+    .controls {
+      position: relative;
+      z-index: 10;
+      max-width: 1400px;
+      margin: 0 auto 80px;
+      padding: 0 5%;
+    }
+
+    .search-container {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto 50px;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 22px 60px 22px 28px;
+      font-size: 1.1rem;
+      background: var(--dark-card);
+      border: 2px solid var(--neon-blue);
+      border-radius: 50px;
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--glow-blue), inset 0 2px 10px rgba(0, 0, 0, 0.5);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+    }
+
+    .search-box:focus {
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 40px rgba(255, 0, 110, 0.6), inset 0 2px 10px rgba(0, 0, 0, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .search-box::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--neon-blue);
+      font-size: 1.3rem;
+      pointer-events: none;
+    }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .filter-group {
+      background: var(--dark-card);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(0, 212, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      transition: all 0.4s ease;
+    }
+
+    .filter-group:hover {
+      border-color: var(--neon-blue);
+      box-shadow: var(--glow-blue);
+      transform: translateY(-5px);
+    }
+
+    .filter-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--neon-blue);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-title i {
+      font-size: 1.2rem;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .filter-chip {
+      padding: 12px 24px;
+      background: rgba(0, 212, 255, 0.1);
+      border: 2px solid rgba(0, 212, 255, 0.3);
+      border-radius: 30px;
+      color: var(--text-primary);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .filter-chip::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: var(--neon-blue);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+      z-index: -1;
+      opacity: 0.2;
+    }
+
+    .filter-chip:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .filter-chip:hover {
+      border-color: var(--neon-blue);
+      transform: scale(1.08);
+      box-shadow: var(--glow-blue);
+    }
+
+    .filter-chip.active {
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+      animation: chipGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes chipGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
+      50% { box-shadow: 0 0 40px rgba(255, 0, 110, 0.7); }
+    }
+
+    /* Courses Section */
+    .courses-wrapper {
+      position: relative;
+      z-index: 10;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 5% 100px;
+    }
+
+    .category-section {
+      margin-bottom: 100px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 50px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid;
+      border-image: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), transparent) 1;
+    }
+
+    .category-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+      animation: iconRotate 4s ease-in-out infinite;
+    }
+
+    @keyframes iconRotate {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(5deg) scale(1.1); }
+    }
+
+    .category-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 35px;
+    }
+
+    /* Course Card */
+    .course-card {
+      background: var(--dark-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid rgba(0, 212, 255, 0.2);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      animation: cardSlideIn 0.8s ease-out backwards;
+    }
+
+    .course-card:nth-child(1) { animation-delay: 0.1s; }
+    .course-card:nth-child(2) { animation-delay: 0.2s; }
+    .course-card:nth-child(3) { animation-delay: 0.3s; }
+    .course-card:nth-child(4) { animation-delay: 0.4s; }
+    .course-card:nth-child(5) { animation-delay: 0.5s; }
+    .course-card:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes cardSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50px) rotateY(-15deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) rotateY(0);
+      }
+    }
+
+    .course-card.hidden {
+      display: none;
+    }
+
+    .course-card:hover {
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 50px rgba(0, 212, 255, 0.5);
+      transform: translateY(-10px) scale(1.02);
+    }
+
+    .card-thumbnail {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .card-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      filter: brightness(0.8);
+    }
+
+    .course-card:hover .card-thumbnail img {
+      transform: scale(1.15);
+      filter: brightness(1);
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: rgba(0, 212, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 40px rgba(0, 212, 255, 0.7);
+      backdrop-filter: blur(10px);
+    }
+
+    .course-card:hover .play-button {
+      transform: translate(-50%, -50%) scale(1.2) rotate(360deg);
+      background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+      box-shadow: 0 0 60px rgba(255, 0, 110, 0.9);
+    }
+
+    .level-tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      border: 2px solid;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .level-beginner {
+      background: rgba(57, 255, 20, 0.2);
+      color: var(--neon-green);
+      border-color: var(--neon-green);
+    }
+
+    .level-intermediate {
+      background: rgba(255, 234, 0, 0.2);
+      color: var(--neon-yellow);
+      border-color: var(--neon-yellow);
+    }
+
+    .level-advanced {
+      background: rgba(255, 0, 110, 0.2);
+      color: var(--neon-pink);
+      border-color: var(--neon-pink);
+    }
+
+    .card-content {
+      padding: 25px;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      min-width: 140px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .btn-video {
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+    }
+
+    .btn-video:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(0, 212, 255, 0.6);
+    }
+
+    .btn-docs {
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--neon-blue);
+      border: 2px solid var(--neon-blue);
+    }
+
+    .btn-docs:hover {
+      background: var(--neon-blue);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .btn-demo {
+      background: rgba(255, 0, 110, 0.1);
+      color: var(--neon-pink);
+      border: 2px solid var(--neon-pink);
+    }
+
+    .btn-demo:hover {
+      background: var(--neon-pink);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Video Modal - Simplified for Direct YouTube Links */
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .video-modal.active {
+      display: flex;
+      animation: modalFadeIn 0.4s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-container {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--dark-card);
+      border-radius: 25px;
+      overflow: hidden;
+      border: 3px solid var(--neon-blue);
+      box-shadow: 0 0 80px rgba(0, 212, 255, 0.6);
+      animation: modalZoom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes modalZoom {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      padding: 25px 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      flex: 1;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .open-youtube-btn {
+      padding: 12px 24px;
+      background: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
+    }
+
+    .open-youtube-btn:hover {
+      background: #cc0000;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 6px 30px rgba(255, 0, 0, 0.6);
+    }
+
+    .open-youtube-btn i {
+      font-size: 1.2rem;
+    }
+
+    .modal-close {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .modal-close:hover {
+      background: white;
+      color: var(--neon-blue);
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    .modal-body {
+      padding: 50px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(181, 55, 242, 0.05));
+    }
+
+    .modal-icon {
+      font-size: 5rem;
+      color: var(--neon-blue);
+      margin-bottom: 30px;
+      animation: iconBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.1); }
+    }
+
+    .modal-text {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .modal-note {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-style: italic;
+      margin-bottom: 40px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .modal-btn {
+      padding: 16px 40px;
+      border: none;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'Montserrat', sans-serif;
+      text-decoration: none;
+      min-width: 200px;
+      justify-content: center;
+    }
+
+    .btn-youtube {
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      color: white;
+      box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+    }
+
+    .btn-youtube:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(255, 0, 0, 0.6);
+      background: linear-gradient(135deg, #cc0000, #990000);
+    }
+
+    .btn-cancel {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-btn i {
+      font-size: 1.3rem;
+    }
+
+    /* Scroll To Top */
+    .scroll-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+      border: 2px solid white;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      animation: scrollBounce 2s infinite;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .scroll-top:hover {
+      transform: scale(1.15) rotate(360deg);
+      box-shadow: 0 0 50px rgba(255, 0, 110, 0.8);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 120px;
+      right: 40px;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      color: white;
+      padding: 18px 28px;
+      border-radius: 15px;
+      font-weight: 600;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateX(400px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .courses-grid {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 15px 4%;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-stats {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .stat-item {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+      }
+
+      .hero {
+        padding: 120px 4% 60px;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .filters-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .modal-container {
+        max-width: 95%;
+      }
+
+      .modal-body {
+        padding: 30px 20px;
+      }
+
+      .modal-icon {
+        font-size: 3.5rem;
+      }
+
+      .modal-text {
+        font-size: 1rem;
+      }
+
+      .modal-buttons {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+      }
+
+      .modal-btn {
+        width: 100%;
+        min-width: auto;
+        padding: 14px 30px;
+        font-size: 1rem;
+      }
+
+      .open-youtube-btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+      }
+
+      .scroll-top {
+        width: 50px;
+        height: 50px;
+        bottom: 25px;
+        right: 25px;
+      }
+
+      .toast {
+        right: 25px;
+        bottom: 95px;
+        font-size: 0.9rem;
+        padding: 15px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.4rem;
+      }
+
+      .category-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+
+      .category-title {
+        font-size: 1.8rem;
+      }
+
+      .card-actions {
+        flex-direction: column;
+      }
+
+      .action-btn {
+        width: 100%;
+      }
+
+      .modal-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+      }
+
+      .modal-actions {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Elements -->
+  <div class="grid-background"></div>
+  <div class="neon-orbs">
+    <div class="neon-orb"></div>
+    <div class="neon-orb"></div>
+    <div class="neon-orb"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-rocket"></i> TECHMASTER
+    </div>
+    <div class="nav-stats">
+      <div class="stat-item">
+        <i class="fas fa-book"></i>
+        <span>Total: <strong id="totalCourses">0</strong></span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-eye"></i>
+        <span>Visible: <strong id="visibleCourses">0</strong></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>
+      <span class="word">TECH</span>
+      <span class="word">MASTER</span>
+      <span class="word">ACADEMY</span>
+    </h1>
+    <p class="hero-subtitle">
+      Level up your tech skills with <strong>200+ premium courses</strong> across Backend, Data Science, Frontend, and DevOps. 
+      All with verified videos, official documentation, and interactive demos.
+    </p>
+  </section>
+
+  <!-- Controls -->
+  <section class="controls">
+    <div class="search-container">
+      <input type="text" class="search-box" id="searchInput" placeholder="Search courses by name or technology...">
+      <i class="fas fa-search search-icon"></i>
+    </div>
+
+    <div class="filters-grid">
+      <div class="filter-group">
+        <div class="filter-title">
+          <i class="fas fa-signal"></i>
+          Difficulty Level
+        </div>
+        <div class="filter-options" id="levelFilters">
+          <div class="filter-chip active" data-level="all">All Levels</div>
+          <div class="filter-chip" data-level="beginner">Beginner</div>
+          <div class="filter-chip" data-level="intermediate">Intermediate</div>
+          <div class="filter-chip" data-level="advanced">Advanced</div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">
+          <i class="fas fa-layer-group"></i>
+          Tech Domain
+        </div>
+        <div class="filter-options" id="domainFilters">
+          <div class="filter-chip active" data-domain="all">All Domains</div>
+          <div class="filter-chip" data-domain="backend">Backend</div>
+          <div class="filter-chip" data-domain="data">Data Science</div>
+          <div class="filter-chip" data-domain="frontend">Frontend</div>
+          <div class="filter-chip" data-domain="devops">DevOps</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Container -->
+  <div class="courses-wrapper" id="coursesWrapper"></div>
+
+  <!-- Scroll To Top -->
+  <div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Watch Course Video</div>
+        <div class="modal-actions">
+          <a href="#" id="youtubeLink" class="open-youtube-btn" target="_blank">
+            <i class="fab fa-youtube"></i>
+            <span>Open in YouTube</span>
+          </a>
+          <button class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-icon">
+          <i class="fab fa-youtube"></i>
+        </div>
+        <p class="modal-text">
+          Ready to watch this course on YouTube?
+        </p>
+        <p class="modal-note">
+          Video will open in a new tab for the best viewing experience
+        </p>
+        <div class="modal-buttons">
+          <a href="#" id="modalYoutubeBtn" class="modal-btn btn-youtube" target="_blank">
+            <i class="fab fa-youtube"></i>
+            <span>Open YouTube</span>
+          </a>
+          <button class="modal-btn btn-cancel" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+            <span>Cancel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Complete course database with all working links
+    const coursesData = [
+      // Backend Development (25 courses)
+      {
+        category: "Backend Development",
+        domain: "backend",
+        icon: "code",
+        courses: [
+          {
+            title: "Python Basics",
+            level: "beginner",
+            description: "Master Python fundamentals for backend development with comprehensive tutorials.",
+            video: "rfscVS0vtbw",
+            docs: "https://docs.python.org/3/tutorial/",
+            demo: "https://www.programiz.com/python-programming/online-compiler/"
+          },
+          {
+            title: "C Language",
+            level: "beginner",
+            description: "Learn C programming fundamentals and system programming concepts.",
+            video: "irqbmMNs2Bo",
+            docs: "https://www.geeksforgeeks.org/c-programming-language/",
+            demo: "https://www.onlinegdb.com/online_c_compiler"
+          },
+          {
+            title: "C++ For DSA",
+            level: "intermediate",
+            description: "C++ programming for Data Structures and Algorithms mastery.",
+            video: "-TkoO8Z07hI",
+            docs: "https://www.geeksforgeeks.org/cpp-tutorial/",
+            demo: "https://www.onlinegdb.com/online_c++_compiler"
+          },
+          {
+            title: "Java Programming",
+            level: "beginner",
+            description: "Complete Java programming from basics to advanced concepts.",
+            video: "grEKMHGYyns",
+            docs: "https://docs.oracle.com/javase/tutorial/",
+            demo: "https://www.jdoodle.com/online-java-compiler/"
+          },
+          {
+            title: "OOPs Concepts",
+            level: "intermediate",
+            description: "Object-Oriented Programming principles and design patterns.",
+            video: "IbMDCwVm63M",
+            docs: "https://www.geeksforgeeks.org/object-oriented-programming-oops-concept-in-java/"
+          },
+          {
+            title: "DSA (A-to-Z DSA)",
+            level: "intermediate",
+            description: "Complete Data Structures and Algorithms comprehensive course.",
+            video: "0bHoB32fuj0",
+            docs: "https://www.geeksforgeeks.org/data-structures/"
+          },
+          {
+            title: "Operating Systems",
+            level: "intermediate",
+            description: "OS concepts, processes, threads, and system programming.",
+            video: "yK1uBHPdp30",
+            docs: "https://www.geeksforgeeks.org/operating-systems/"
+          },
+          {
+            title: "DBMS",
+            level: "intermediate",
+            description: "Database Management Systems and SQL query mastery.",
+            video: "ZaaSa1TtqXY",
+            docs: "https://www.geeksforgeeks.org/dbms/"
+          },
+          {
+            title: "System Design",
+            level: "advanced",
+            description: "Large-scale distributed system design patterns and architectures.",
+            video: "m8Icp_Cid5o",
+            docs: "https://github.com/donnemartin/system-design-primer"
+          },
+          {
+            title: "Computer Networks",
+            level: "intermediate",
+            description: "Networking fundamentals, protocols, and network architecture.",
+            video: "qiQR5rTSshw",
+            docs: "https://www.geeksforgeeks.org/computer-network-tutorials/"
+          },
+          {
+            title: "Git & GitHub",
+            level: "beginner",
+            description: "Version control and collaborative software development.",
+            video: "VIBWdLLq9kQ",
+            docs: "https://www.w3schools.com/git/default.asp",
+            demo: "https://github.com/"
+          },
+          {
+            title: "MongoDB",
+            level: "intermediate",
+            description: "NoSQL database design, development, and optimization.",
+            video: "oY-0v7w-Ac8",
+            docs: "https://docs.mongodb.com/",
+            demo: "https://www.mongodb.com/cloud/atlas"
+          },
+          {
+            title: "AWS/Azure/GCP Fundamentals",
+            level: "intermediate",
+            description: "Cloud computing platforms, services, and best practices.",
+            video: "3hLmDS179YE",
+            docs: "https://aws.amazon.com/getting-started/"
+          },
+          {
+            title: "Docker & Kubernetes",
+            level: "intermediate",
+            description: "Containerization and orchestration technologies for modern apps.",
+            video: "3c-iBn73dDE",
+            docs: "https://docs.docker.com/",
+            demo: "https://labs.play-with-docker.com/"
+          },
+          {
+            title: "GraphQL API Development",
+            level: "intermediate",
+            description: "Modern API development with GraphQL query language.",
+            video: "E3NHd-PkLrQ",
+            docs: "https://graphql.org/learn/",
+            demo: "https://graphql.org/swapi-graphql"
+          },
+          {
+            title: "Microservices Architecture",
+            level: "advanced",
+            description: "Design and implement distributed microservices systems.",
+            video: "hmkF77F9TLw",
+            docs: "https://microservices.io/"
+          },
+          {
+            title: "Redis Database",
+            level: "intermediate",
+            description: "In-memory data structures, caching, and message queuing.",
+            video: "XCsS_NVAa1g",
+            docs: "https://redis.io/docs/",
+            demo: "https://try.redis.io/"
+          },
+          {
+            title: "Java Spring Framework",
+            level: "intermediate",
+            description: "Enterprise Java development with Spring Boot framework.",
+            video: "6YZvp2GwT0A",
+            docs: "https://spring.io/guides",
+            demo: "https://start.spring.io/"
+          },
+          {
+            title: "Go Programming Language",
+            level: "intermediate",
+            description: "Modern systems programming with Go for scalable applications.",
+            video: "yyUHQIec83I",
+            docs: "https://golang.org/doc/",
+            demo: "https://play.golang.org/"
+          },
+          {
+            title: "API Security (OAuth, JWT)",
+            level: "advanced",
+            description: "API authentication, authorization, and security best practices.",
+            video: "996OiexHze0",
+            docs: "https://auth0.com/intro-to-iam/what-is-oauth-2",
+            demo: "https://jwt.io/"
+          },
+          {
+            title: "Serverless Architecture",
+            level: "advanced",
+            description: "Function-as-a-Service and serverless computing with AWS Lambda.",
+            video: "eOBq__h4OJ4",
+            docs: "https://aws.amazon.com/lambda/",
+            demo: "https://aws.amazon.com/lambda/getting-started/"
+          },
+          {
+            title: "Software Testing",
+            level: "intermediate",
+            description: "Comprehensive testing strategies: Unit, Integration, E2E testing.",
+            video: "r9HdJ8P6GQI",
+            docs: "https://www.guru99.com/software-testing.html",
+            demo: "https://www.selenium.dev/"
+          },
+          {
+            title: "Rust Programming Language",
+            level: "advanced",
+            description: "Memory-safe systems programming with Rust for high performance.",
+            video: "zF34dRivLOw",
+            docs: "https://doc.rust-lang.org/book/",
+            demo: "https://play.rust-lang.org/"
+          },
+          {
+            title: "C# and .NET Framework",
+            level: "intermediate",
+            description: "Microsoft .NET platform development and enterprise applications.",
+            video: "GhQdlIFylQ8",
+            docs: "https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial/intro",
+            demo: "https://dotnetfiddle.net/"
+          },
+          {
+            title: "Django for Web Development",
+            level: "intermediate",
+            description: "Python web framework for rapid, secure web development.",
+            video: "F5mRW0jo-U4",
+            docs: "https://www.djangoproject.com/start/",
+            demo: "https://replit.com/languages/python3"
+          }
+        ]
+      },
+      // Data Science (22 courses)
+      {
+        category: "Data Science",
+        domain: "data",
+        icon: "chart-line",
+        courses: [
+          {
+            title: "Python Data Analysis",
+            level: "beginner",
+            description: "Data analysis fundamentals with Python, Pandas, and NumPy.",
+            video: "r-uOLxNrNk8",
+            docs: "https://pandas.pydata.org/docs/getting_started/intro_tutorials/"
+          },
+          {
+            title: "SQL for Analysis",
+            level: "beginner",
+            description: "SQL queries for data analysis, reporting, and insights.",
+            video: "HXV3zeQKqGY",
+            docs: "https://www.w3schools.com/sql/",
+            demo: "https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all"
+          },
+          {
+            title: "Excel for Data",
+            level: "beginner",
+            description: "Advanced Excel techniques for data analysis and visualization.",
+            video: "Vl0H-qTclOg",
+            docs: "https://exceljet.net/"
+          },
+          {
+            title: "Power BI",
+            level: "intermediate",
+            description: "Business intelligence and interactive data visualization dashboards.",
+            video: "H84UJn1CiWo",
+            docs: "https://docs.microsoft.com/en-us/power-bi/"
+          },
+          {
+            title: "Statistics Basics",
+            level: "beginner",
+            description: "Statistical foundations essential for data science and analytics.",
+            video: "xxpc-HPKN28",
+            docs: "https://www.geeksforgeeks.org/statistics-for-data-science/"
+          },
+          {
+            title: "Data Visualization (Python)",
+            level: "intermediate",
+            description: "Create stunning visualizations with Matplotlib and Seaborn.",
+            video: "3Xc3CA655Y4",
+            docs: "https://matplotlib.org/stable/tutorials/introductory/pyplot.html"
+          },
+          {
+            title: "Advanced Pandas",
+            level: "intermediate",
+            description: "Advanced data manipulation, transformation, and analysis techniques.",
+            video: "vmEHCJofslg",
+            docs: "https://pandas.pydata.org/docs/"
+          },
+          {
+            title: "Google Data Studio",
+            level: "beginner",
+            description: "Free data visualization and reporting tool by Google.",
+            video: "1qGsjmmHiu8",
+            docs: "https://support.google.com/datastudio/",
+            demo: "https://datastudio.google.com/"
+          },
+          {
+            title: "Advanced Tableau",
+            level: "advanced",
+            description: "Professional data visualization and business intelligence with Tableau.",
+            video: "j8FSP8XuFyk",
+            docs: "https://help.tableau.com/current/pro/desktop/en-us/",
+            demo: "https://public.tableau.com/app/discover"
+          },
+          {
+            title: "Python Data Cleaning",
+            level: "intermediate",
+            description: "Data preprocessing, cleaning, and preparation techniques with Pandas.",
+            video: "0uBirYFhizE",
+            docs: "https://pandas.pydata.org/docs/getting_started/install.html"
+          },
+          {
+            title: "Big Data Basics",
+            level: "advanced",
+            description: "Introduction to Hadoop, Spark, and big data processing frameworks.",
+            video: "1vbXmCrkT3Y",
+            docs: "https://spark.apache.org/examples.html"
+          },
+          {
+            title: "Time Series Forecasting",
+            level: "advanced",
+            description: "Predictive analytics and time series modeling techniques.",
+            video: "cBojo1hsHiI",
+            docs: "https://www.kaggle.com/learn/time-series"
+          },
+          {
+            title: "ML Algorithms Intuition",
+            level: "intermediate",
+            description: "Visual understanding of machine learning algorithms and concepts.",
+            video: "aircAruvnKk",
+            docs: "https://www.geeksforgeeks.org/machine-learning/"
+          },
+          {
+            title: "Data Mining Techniques",
+            level: "advanced",
+            description: "Extract valuable knowledge patterns from large datasets.",
+            video: "rzRJsNeS0KI",
+            docs: "https://www.geeksforgeeks.org/data-mining/",
+            demo: "https://www.knime.com/"
+          },
+          {
+            title: "R for Data Analysis",
+            level: "intermediate",
+            description: "Statistical computing and graphics with R programming language.",
+            video: "32o0DnuRjfg",
+            docs: "https://www.r-project.org/",
+            demo: "https://rstudio.cloud/"
+          },
+          {
+            title: "Data Storytelling",
+            level: "intermediate",
+            description: "Communicate insights through compelling data-driven narratives.",
+            video: "8EMW7io4rSI",
+            docs: "https://www.storytellingwithdata.com/"
+          },
+          {
+            title: "Machine Learning Basics",
+            level: "intermediate",
+            description: "Introduction to machine learning concepts and algorithms.",
+            video: "ukzFI9rgwfU",
+            docs: "https://scikit-learn.org/stable/tutorial/basic/tutorial.html",
+            demo: "https://www.kaggle.com/"
+          },
+          {
+            title: "Data Analysis with NumPy",
+            level: "intermediate",
+            description: "Numerical computing and array operations with NumPy.",
+            video: "GB9ByFAIAH4",
+            docs: "https://numpy.org/doc/stable/user/absolute_beginners.html",
+            demo: "https://www.programiz.com/python-programming/online-compiler/"
+          },
+          {
+            title: "Data Visualization with Seaborn",
+            level: "intermediate",
+            description: "Statistical data visualization made elegant and informative.",
+            video: "6GUZXDef2U0",
+            docs: "https://seaborn.pydata.org/tutorial.html",
+            demo: "https://www.programiz.com/python-programming/online-compiler/"
+          },
+          {
+            title: "Data Warehousing Concepts",
+            level: "advanced",
+            description: "Design and manage enterprise data warehouses effectively.",
+            video: "fGaJru-1fjI",
+            docs: "https://www.geeksforgeeks.org/data-warehouse-introduction/"
+          },
+          {
+            title: "Data Ethics and Privacy",
+            level: "intermediate",
+            description: "Ethical considerations and privacy concerns in data science.",
+            video: "soliOHbzJog",
+            docs: "https://www.edx.org/course/data-science-ethics"
+          },
+          {
+            title: "Data Visualization with D3.js",
+            level: "advanced",
+            description: "Interactive web-based data visualizations with D3.js library.",
+            video: "_8V5o2UHG0E",
+            docs: "https://observablehq.com/@d3/learn-d3",
+            demo: "https://observablehq.com/"
+          }
+        ]
+      },
+      // Frontend/UI/UX (14 courses)
+      {
+        category: "Frontend/UI/UX",
+        domain: "frontend",
+        icon: "palette",
+        courses: [
+          {
+            title: "UI/UX Design",
+            level: "beginner",
+            description: "User interface and experience design principles and best practices.",
+            video: "8GofoyfO3TA",
+            docs: "https://www.interaction-design.org/literature/topics/ux-design"
+          },
+          {
+            title: "HTML Fundamentals",
+            level: "beginner",
+            description: "Structure web content with semantic HTML5 elements.",
+            video: "qz0aGYrrlhU",
+            docs: "https://developer.mozilla.org/en-US/docs/Learn/HTML",
+            demo: "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default"
+          },
+          {
+            title: "CSS Basics",
+            level: "beginner",
+            description: "Style web pages with modern CSS3 techniques and properties.",
+            video: "J5KxiOnIrKg",
+            docs: "https://developer.mozilla.org/en-US/docs/Learn/CSS",
+            demo: "https://www.w3schools.com/css/tryit.asp?filename=trycss_default"
+          },
+          {
+            title: "JavaScript Basics",
+            level: "beginner",
+            description: "Interactive web programming with JavaScript fundamentals.",
+            video: "_zPNLidkNYk",
+            docs: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript",
+            demo: "https://jsfiddle.net/"
+          },
+          {
+            title: "React + Tailwind",
+            level: "intermediate",
+            description: "Modern React development with Tailwind CSS utility framework.",
+            video: "IJ85kCdqWao",
+            docs: "https://tailwindcss.com/docs/installation",
+            demo: "https://play.tailwindcss.com/"
+          },
+          {
+            title: "Responsive Design",
+            level: "intermediate",
+            description: "Mobile-first responsive web design with media queries.",
+            video: "srvUrASNj0s",
+            docs: "https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
+          },
+          {
+            title: "Figma Basics",
+            level: "beginner",
+            description: "Design interfaces and interactive prototypes with Figma.",
+            video: "FTFaQWZBqQ8",
+            docs: "https://help.figma.com/",
+            demo: "https://www.figma.com/"
+          },
+          {
+            title: "Advanced CSS",
+            level: "intermediate",
+            description: "CSS Grid, Flexbox, animations, and advanced styling techniques.",
+            video: "0hrJGWrCux0",
+            docs: "https://css-tricks.com/",
+            demo: "https://codepen.io/"
+          },
+          {
+            title: "Next.js",
+            level: "intermediate",
+            description: "Full-stack React framework with server-side rendering.",
+            video: "ZVnjOPwW4ZA",
+            docs: "https://nextjs.org/docs",
+            demo: "https://vercel.com/new"
+          },
+          {
+            title: "Three.js (3D Web)",
+            level: "advanced",
+            description: "Create immersive 3D web experiences with Three.js library.",
+            video: "KM64t3pA4fs",
+            docs: "https://threejs.org/docs/",
+            demo: "https://threejs.org/editor/"
+          },
+          {
+            title: "TypeScript for React",
+            level: "intermediate",
+            description: "Type-safe React development with TypeScript language.",
+            video: "zQnBQ4tB3ZA",
+            docs: "https://www.typescriptlang.org/docs/",
+            demo: "https://www.typescriptlang.org/play/"
+          },
+          {
+            title: "Vue.js Basics",
+            level: "intermediate",
+            description: "Progressive JavaScript framework for building user interfaces.",
+            video: "4deVCNJq3qc",
+            docs: "https://vuejs.org/guide/",
+            demo: "https://sfc.vuejs.org/"
+          },
+          {
+            title: "Progressive Web Apps",
+            level: "advanced",
+            description: "Build app-like web experiences with PWA technologies.",
+            video: "sFsRylCQblw",
+            docs: "https://web.dev/progressive-web-apps/",
+            demo: "https://pwa.rocks/"
+          },
+          {
+            title: "Angular Basics",
+            level: "intermediate",
+            description: "Enterprise-grade web application framework by Google.",
+            video: "3qBXWUpoPHo",
+            docs: "https://angular.io/start",
+            demo: "https://stackblitz.com/"
+          }
+        ]
+      },
+      // DevOps & CI/CD (10 courses)
+      {
+        category: "DevOps & CI/CD",
+        domain: "devops",
+        icon: "server",
+        courses: [
+          {
+            title: "Linux & Shell",
+            level: "beginner",
+            description: "Command line mastery and shell scripting for automation.",
+            video: "IVquJh3DXUA",
+            docs: "https://www.geeksforgeeks.org/linux-tutorial/"
+          },
+          {
+            title: "GitHub Actions",
+            level: "intermediate",
+            description: "Automated CI/CD workflows and pipelines with GitHub Actions.",
+            video: "R8_veQiYBjI",
+            docs: "https://docs.github.com/en/actions"
+          },
+          {
+            title: "Terraform (IaC)",
+            level: "intermediate",
+            description: "Infrastructure as Code with Terraform for cloud automation.",
+            video: "7xngnjfIlK4",
+            docs: "https://learn.hashicorp.com/terraform",
+            demo: "https://registry.terraform.io/"
+          },
+          {
+            title: "Jenkins Pipeline",
+            level: "intermediate",
+            description: "Advanced CI/CD pipelines and automation with Jenkins.",
+            video: "6YZvp2GwT0A",
+            docs: "https://www.jenkins.io/doc/",
+            demo: "https://www.jenkins.io/doc/tutorials/"
+          },
+          {
+            title: "Ansible Configuration",
+            level: "intermediate",
+            description: "Automate configuration management and deployment tasks.",
+            video: "5hycyr-8EKs",
+            docs: "https://docs.ansible.com/",
+            demo: "https://www.ansible.com/"
+          },
+          {
+            title: "Prometheus & Grafana",
+            level: "advanced",
+            description: "Infrastructure monitoring, alerting, and visualization.",
+            video: "9TJx7QTrTyo",
+            docs: "https://prometheus.io/docs/introduction/overview/",
+            demo: "https://play.grafana.org/"
+          },
+          {
+            title: "Kubernetes Orchestration",
+            level: "advanced",
+            description: "Container orchestration and management with Kubernetes.",
+            video: "X48VuDVv0do",
+            docs: "https://kubernetes.io/docs/tutorials/",
+            demo: "https://labs.play-with-k8s.com/"
+          },
+          {
+            title: "GitLab CI/CD",
+            level: "intermediate",
+            description: "Continuous Integration and Deployment with GitLab pipelines.",
+            video: "1iXFbchozdY",
+            docs: "https://docs.gitlab.com/ee/ci/"
+          },
+          {
+            title: "Service Mesh with Istio",
+            level: "advanced",
+            description: "Microservices communication, security, and observability.",
+            video: "16fgzklcF7Y",
+            docs: "https://istio.io/latest/docs/"
+          },
+          {
+            title: "CloudFormation for AWS",
+            level: "intermediate",
+            description: "AWS infrastructure automation with CloudFormation templates.",
+            video: "Omppm_YUG2g",
+            docs: "https://docs.aws.amazon.com/cloudformation/"
+          }
+        ]
+      }
+    ];
+
+    // App State
+    let state = {
+      activeLevel: 'all',
+      activeDomain: 'all',
+      searchTerm: ''
+    };
+
+    // Render courses
+    function renderCourses() {
+      const wrapper = document.getElementById('coursesWrapper');
+      wrapper.innerHTML = '';
+
+      coursesData.forEach(section => {
+        const sectionHTML = `
+          <section class="category-section">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-${section.icon}"></i>
+              </div>
+              <h2 class="category-title">${section.category}</h2>
+            </div>
+            <div class="courses-grid" data-domain="${section.domain}">
+              ${section.courses.map(course => createCourseCard(course, section.domain)).join('')}
+            </div>
+          </section>
+        `;
+        wrapper.innerHTML += sectionHTML;
+      });
+
+      updateStats();
+    }
+
+    // Create course card
+    function createCourseCard(course, domain) {
+      const thumbnailUrl = `https://img.youtube.com/vi/${course.video}/hqdefault.jpg`;
+      
+      return `
+        <div class="course-card" data-level="${course.level}" data-domain="${domain}">
+          <div class="card-thumbnail">
+            <img src="${thumbnailUrl}" alt="${course.title}" loading="lazy">
+            <div class="play-button" onclick="openVideo('${course.video}', '${course.title.replace(/'/g, "\\'")}')">
+              <i class="fas fa-play"></i>
+            </div>
+            <span class="level-tag level-${course.level}">${course.level}</span>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">${course.title}</h3>
+            <p class="card-description">${course.description}</p>
+            <div class="card-actions">
+              <button class="action-btn btn-video" onclick="openVideo('${course.video}', '${course.title.replace(/'/g, "\\'")}')">
+                <i class="fab fa-youtube"></i> Watch
+              </button>
+              ${course.docs ? `<a href="${course.docs}" target="_blank" class="action-btn btn-docs">
+                <i class="fas fa-book"></i> Docs
+              </a>` : ''}
+              ${course.demo ? `<a href="${course.demo}" target="_blank" class="action-btn btn-demo">
+                <i class="fas fa-external-link-alt"></i> Demo
+              </a>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Filter courses
+    function filterCourses() {
+      const cards = document.querySelectorAll('.course-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const level = card.dataset.level;
+        const domain = card.dataset.domain;
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        const description = card.querySelector('.card-description').textContent.toLowerCase();
+
+        const matchesLevel = state.activeLevel === 'all' || level === state.activeLevel;
+        const matchesDomain = state.activeDomain === 'all' || domain === state.activeDomain;
+        const matchesSearch = !state.searchTerm || 
+          title.includes(state.searchTerm) || 
+          description.includes(state.searchTerm);
+
+        if (matchesLevel && matchesDomain && matchesSearch) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      document.getElementById('visibleCourses').textContent = visibleCount;
+    }
+
+    // Update stats
+    function updateStats() {
+      const totalCourses = coursesData.reduce((sum, section) => sum + section.courses.length, 0);
+      document.getElementById('totalCourses').textContent = totalCourses;
+      document.getElementById('visibleCourses').textContent = totalCourses;
+    }
+
+    // Open video modal
+    function openVideo(videoId, title) {
+      const modal = document.getElementById('videoModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const youtubeLink = document.getElementById('youtubeLink');
+      const modalYoutubeBtn = document.getElementById('modalYoutubeBtn');
+
+      modalTitle.textContent = title;
+      const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+      youtubeLink.href = youtubeUrl;
+      modalYoutubeBtn.href = youtubeUrl;
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      showToast(`🎬 Ready to watch: ${title}`);
+    }
+
+    // Close modal
+    function closeModal() {
+      const modal = document.getElementById('videoModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Show toast
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCourses();
+
+      // Search
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        state.searchTerm = e.target.value.toLowerCase().trim();
+        filterCourses();
+      });
+
+      // Level filters
+      document.querySelectorAll('#levelFilters .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#levelFilters .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          state.activeLevel = chip.dataset.level;
+          filterCourses();
+          showToast(`Filter: ${chip.textContent}`);
+        });
+      });
+
+      // Domain filters
+      document.querySelectorAll('#domainFilters .filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#domainFilters .filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          state.activeDomain = chip.dataset.domain;
+          filterCourses();
+          showToast(`Domain: ${chip.textContent}`);
+        });
+      });
+
+      // Scroll to top
+      const scrollBtn = document.getElementById('scrollTop');
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollBtn.classList.add('visible');
+        } else {
+          scrollBtn.classList.remove('visible');
+        }
+      });
+
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Close modal on outside click
+      document.getElementById('videoModal').addEventListener('click', (e) => {
+        if (e.target.id === 'videoModal') {
+          closeModal();
+        }
+      });
+
+      // Close modal on escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeModal();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
