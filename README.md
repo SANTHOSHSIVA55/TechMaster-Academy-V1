@@ -116,3 +116,7 @@ All external content (videos, docs) belongs to their respective owners.
 ---
 
 **Built to help learners master tech — fast, focused, and future‑ready.** 🔥
+
+
+<img width="1886" height="913" alt="image" src="https://github.com/user-attachments/assets/88f4648c-efb4-46b2-abfd-84423aedb65a" />
+
